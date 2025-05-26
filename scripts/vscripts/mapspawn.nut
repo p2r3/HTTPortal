@@ -61,13 +61,32 @@ IncludeScript("domtypes");
   scope._domType <- type;
 
   if (typeof type == "string") {
-    // Special case for raw strings
+    // Special case for raw strings (text nodes)
     cube.targetname = type;
-    cube.Color("120 120 120");
+    cube.Color("120 120 120"); // Grey color for text nodes
+  } else if (typeof type == "integer") {
+    // Set the color and display name based on the element type enum
+    local absType = abs(type);
+    if (absType >= 0 && absType < DOM_ELEMENTS.len()) {
+        cube.Color(DOM_COLORS[absType]);
+        cube.targetname = "<" + (type < 0 ? "/" : "") + DOM_ELEMENTS[absType] + ">";
+    } else {
+        // Handle invalid element type enum
+        local errorText = ppmod.text("Invalid element type enum value: " + type, -1, 0.3);
+        errorText.SetColor("255 0 0");
+        errorText.SetSize(2);
+        errorText.Display(2);
+        cube.Color("255 0 0"); // Red color for error
+        cube.targetname = "<INVALID>";
+    }
   } else {
-    // Set the color and display name based on the type
-    cube.Color(DOM_COLORS[abs(type)]);
-    cube.targetname = "<" + (type < 0 ? "/" : "") + DOM_ELEMENTS[abs(type)] + ">";
+      // Should not happen if called from createCube, but adding a fallback
+      local errorText = ppmod.text("Unexpected type in newElement: " + typeof type, -1, 0.3);
+      errorText.SetColor("255 0 0");
+      errorText.SetSize(2);
+      errorText.Display(2);
+      cube.Color("255 0 0"); // Red color for error
+      cube.targetname = "<ERROR>";
   }
 
   // Show success message
@@ -167,27 +186,114 @@ IncludeScript("domtypes");
 
   // Sort DOM elements
   dom.sort(function (a, b) {
+    // Sort by Z-coordinate (depth) first
+    if (a.pos.z > b.pos.z + 18.0) return 1;
+    if (a.pos.z < b.pos.z - 18.0) return -1;
+    // Then sort by Y-coordinate
     if (a.pos.y > b.pos.y + 18.0) return -1;
     if (a.pos.y < b.pos.y - 18.0) return 1;
+    // Finally sort by X-coordinate
     if (a.pos.x > b.pos.x) return 1;
     if (a.pos.x < b.pos.x) return -1;
     return 0;
   });
 
-  // Generate HTML
-  local output = "";
-  foreach (obj in dom) {
-    local modifiers = "";
-    foreach (key, value in obj.modifiers) {
-      modifiers += key + "=\"" + value + "\" ";
-    }
+  // Build the DOM tree structure
+  local htmlTree = { type = "root", children = [] };
+  local currentParent = htmlTree;
+  local elementStack = []; // To keep track of open elements and their corresponding tree nodes
 
-    if (typeof obj.type == "string") {
-      output += obj.type;
-    } else {
-      output += "<" + (obj.type < 0 ? "/" : "") + DOM_ELEMENTS[abs(obj.type)] + " " + modifiers + ">";
+  foreach (obj in dom) {
+    local type = obj.type;
+    local collectedModifiers = obj.modifiers; // Modifiers collected in the first pass based on position
+    local pos = obj.pos;
+
+    if (typeof type == "string") {
+      // Handle text nodes
+      local textNode = { type = "text", data = type };
+      currentParent.children.push(textNode);
+    } else if (typeof type == "integer") {
+      local absType = abs(type);
+      if (type > 0) {
+        // Handle opening tags
+        local elementNode = { type = DOM_ELEMENTS[absType], attributes = {}, children = [] };
+        // Copy collected modifiers to the element node's attributes
+        foreach(key, value in collectedModifiers) {
+            elementNode.attributes[key] <- value;
+        }
+        currentParent.children.push(elementNode);
+        // Push the element node and its type onto the stack
+        elementStack.push({ node = elementNode, type = type });
+        currentParent = elementNode; // Set the new element as the current parent
+      } else if (type < 0) {
+        // Handle closing tags
+        local openingTagType = absType;
+        local foundIndex = -1;
+        // Find the most recent matching opening tag on the stack
+        for (local i = elementStack.len() - 1; i >= 0; i--) {
+            if (abs(elementStack[i].type) == openingTagType) {
+                foundIndex = i;
+                break;
+            }
+        }
+
+        if (foundIndex != -1) {
+            // Correctly adjust the currentParent after closing the tag
+            // Pop all elements from the stack from the found index upwards
+            for (local i = elementStack.len() - 1; i >= foundIndex; i--) {
+                elementStack.pop();
+            }
+
+            // The new currentParent is the node at the top of the stack, or the root if the stack is empty
+            if (elementStack.len() > 0) {
+                currentParent = elementStack.top().node;
+            } else {
+                currentParent = htmlTree;
+            }
+
+        } else {
+             // Handle mismatched closing tag - log a warning
+             printl("Mismatched closing tag encountered for type: " + DOM_ELEMENTS[absType]);
+             // Stay at the current parent, effectively ignoring the mismatched closing tag
+        }
+      }
     }
+    // Modifiers associated with text nodes or placed outside elements will be ignored in this tree building pass.
+    // This is a simplification; a more robust system might handle these differently.
   }
+
+  // Generate HTML from the tree
+  local output = "<!-- HTML generated from cubes -->\n";
+
+  // Recursive function to traverse the htmlTree and build the HTML string
+  function buildHtmlString(node) {
+      local html = "";
+      if (node.type == "text") {
+          html += node.data; // Append text content
+      } else if (node.type != "root") {
+          // Handle element nodes (excluding the root)
+          html += "<" + node.type;
+          // Add attributes from modifiers
+          foreach(key, value in node.attributes) {
+              html += " " + key + "=\"" + value + "\"";
+          }
+          html += ">";
+          // Recursively build HTML for children
+          foreach(child in node.children) {
+              html += buildHtmlString(child);
+          }
+          // Add closing tag
+          html += "</" + node.type + ">";
+      } else {
+          // Handle the root node - just process its children
+          foreach(child in node.children) {
+              html += buildHtmlString(child);
+          }
+      }
+      return html;
+  }
+
+  output += buildHtmlString(htmlTree);
 
   return output;
 };
