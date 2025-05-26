@@ -43,9 +43,9 @@ Welcome to the HTTPortal documentation! This documentation will help you underst
 
 ## Quick Links
 
-- [GitHub Repository](https://github.com/yourusername/HTTPortal)
+- [GitHub Repository](https://github.com/GameNight1436/HTTPortal)
 - [Video Overview](https://youtu.be/-v5vCLLsqbA)
-- [Issue Tracker](https://github.com/yourusername/HTTPortal/issues)
+- [Issue Tracker](https://github.com/GameNight1436/HTTPortal/issues)
 
 ## Support
 
