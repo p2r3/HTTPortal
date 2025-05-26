@@ -1,5 +1,7 @@
 # Command Reference
 
+*Last updated: May 26, 2025*
+
 This guide lists all available commands in HTTPortal and how to use them.
 
 ## Console Commands

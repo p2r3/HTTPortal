@@ -1,5 +1,7 @@
 # Core Concepts
 
+*Last updated: May 26, 2025*
+
 This guide explains the fundamental concepts behind HTTPortal and how it works.
 
 ## How HTTPortal Works

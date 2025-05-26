@@ -1,5 +1,7 @@
 # Technical Reference
 
+*Last updated: May 26, 2025*
+
 This guide provides technical details about HTTPortal's implementation and architecture.
 
 ## Architecture Overview

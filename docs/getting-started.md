@@ -1,5 +1,7 @@
 # Getting Started with HTTPortal
 
+*Last updated: May 26, 2025*
+
 This guide will help you get HTTPortal up and running in Portal 2.
 
 ## Prerequisites

@@ -1,5 +1,7 @@
 # Contributing to HTTPortal
 
+*Last updated: May 26, 2025*
+
 This guide explains how to contribute to the HTTPortal project.
 
 ## Getting Started

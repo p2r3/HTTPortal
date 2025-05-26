@@ -1,5 +1,7 @@
 # Building Web Pages
 
+*Last updated: May 26, 2025*
+
 This guide explains how to build web pages using HTTPortal's cube-based system.
 
 ## Basic Page Structure

@@ -2,6 +2,8 @@
 
 Welcome to the HTTPortal documentation! This documentation will help you understand and use the HTTPortal mod for Portal 2.
 
+*Last updated: May 26, 2025*
+
 ## Table of Contents
 
 1. [Getting Started](./getting-started.md)
@@ -21,25 +23,33 @@ Welcome to the HTTPortal documentation! This documentation will help you underst
    - Layout Guidelines
 
 4. [Command Reference](./commands.md)
-   - createCube Command
-   - GET Command
-   - Other Commands
+   - Console Commands
+   - Cube Commands
+   - Style Commands
+   - Layout Commands
 
 5. [Technical Reference](./technical.md)
-   - Script Architecture
-   - Save System
-   - Error Handling
+   - Architecture Overview
+   - File Structure
+   - Technical Details
    - Performance Considerations
 
 6. [Troubleshooting](./troubleshooting.md)
    - Common Issues
    - Error Messages
-   - Debug Tips
+   - Performance Issues
+   - Recovery Steps
 
 7. [Contributing](./contributing.md)
    - Development Setup
    - Code Style Guide
    - Pull Request Process
+   - Testing Guidelines
+
+8. [Additional Resources](./additional-resources.md)
+   - [FAQ](./FAQ.md)
+   - Community Resources
+   - Support Information
 
 ## Quick Links
 
@@ -51,5 +61,10 @@ Welcome to the HTTPortal documentation! This documentation will help you underst
 
 If you need help or have questions:
 1. Check the [Troubleshooting](./troubleshooting.md) guide
-2. Search existing [Issues](https://github.com/yourusername/HTTPortal/issues)
-3. Create a new issue if your problem isn't already documented 
+2. Search the [FAQ](./FAQ.md)
+3. Search existing [Issues](https://github.com/yourusername/HTTPortal/issues)
+4. Create a new issue if your problem isn't already documented
+
+## Contributing
+
+We welcome contributions! See the [Contributing](./contributing.md) guide for details. 

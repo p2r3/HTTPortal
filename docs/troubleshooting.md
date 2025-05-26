@@ -1,5 +1,7 @@
 # Troubleshooting
 
+*Last updated: May 26, 2025*
+
 This guide helps you solve common issues with HTTPortal.
 
 ## Common Issues

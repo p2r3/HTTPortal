@@ -11,7 +11,8 @@
  * - Graceful error handling
  * 
  * @author p2r3
- * @version 2.0
+ * @version 2.1
+ * @updated by Green_Detek
  */
 
 // Prevent recursive script inclusion
