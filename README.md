@@ -1,25 +1,47 @@
 # HTTPortal
-Basic HTTP/1.1 server implementation in Portal 2. [See here](https://youtu.be/-v5vCLLsqbA) for a mid-level overview of the project.
 
-## Usage
-- In Steam, add this launch option to Portal 2: `-netconport 3000`
-- Clone this repository and move its root directory to your game files. Rename it to `portal2_dlcX`, where X is the lowest positive integer not in use.
-- Start Portal 2, you should be brought to Laser Chaining after a couple of loading screens.
-- Enable the developer console in keyboard settings (if you haven't already).
-- Open `localhost:3000` in a browser - a blank page should open.
+A Portal 2 mod that turns the game into a basic HTTP/1.1 server. Create web pages using colored cubes in the game world!
 
-### Creating a webpage
-Here's a very quick crash course on how to use the page builder:
-- To create an HTML element (e.g. \<H1\>), use this command: `script newElement(H1)`
-- To create a closing tag (e.g. \</H1\>), use this command: `script newElement(-H1)`
-- To create a plaintext node, use this command: `script newElement("Hello, World!")`
-- To create a modifier (e.g. style), use this command: `script newModifier("style", "color: red")`
+If you want to learn how to use and install this mod check out the documentation [here](./docs/README.md)
 
-Elements are ordered first towards -Y, then towards +X. In other words, if you're building your site on Laser Chaining, keep the faith plate platform to your right and place cubes left-to-right, top-to-bottom.
+*Last updated: May 26, 2025*
 
-The tag name must be provided in uppercase, _unquoted_ (it's an enumeration). For closing tags, just append a minus (`-`) to the tag name.
+## Features
 
-Modifiers _stack_ - both literally and also in the document. So using two `style` modifiers on top of each other will stack the properties, but using two `src` or `href` modifiers will probably just break your link.
+- Create HTML elements using colored cubes
+- Add styles and attributes with modifier cubes
+- Generate and serve web pages on localhost:3000
+- Save and load page layouts
+- Basic HTTP/1.1 server functionality
+
+## Quick Start
+
+1. Add `-netconport 3000` to Portal 2's launch options
+2. Install the mod files in your Portal 2 directory
+3. Start Portal 2 and load the Laser Chaining level
+4. Use the console to create elements and serve pages
+
+## Documentation
+
+- [Getting Started](./docs/getting-started.md)
+- [Core Concepts](./docs/core-concepts.md)
+- [Building Pages](./docs/building-pages.md)
+- [Command Reference](./docs/commands.md)
+- [Technical Reference](./docs/technical.md)
+- [Troubleshooting](./docs/troubleshooting.md)
+- [FAQ](./docs/FAQ.md)
 
 ## Contributing
-Submit issues before pull requests (discuss, then code), and adhere to the code style. Ideally, use the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) naming scheme. Code that doesn't respect the style/conventions of the code base will not be accepted.
+
+We welcome contributions! See the [Contributing Guide](./docs/contributing.md) for details.
+
+## Support
+
+If you need help:
+1. Check the [Troubleshooting Guide](./docs/troubleshooting.md)
+2. Search the [FAQ](./docs/FAQ.md)
+3. Create an issue on GitHub
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

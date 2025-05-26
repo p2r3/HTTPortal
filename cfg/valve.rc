@@ -1,9 +1,33 @@
-// default valve.rc contents
+// Portal 2 Enhanced Configuration
+// =============================
+
+// Load essential configurations
 exec joystick.cfg
 exec autoexec.cfg
+
+// Execute any queued commands
 stuffcmds
 
-// a fresh start will likely try to rebuild soundcache
-// or, users may attempt to load a save, which skips ppmod.onauto
-// to work around both issues, we boot straight into a map
+// Performance and stability settings
+fps_max 300
+cl_forcepreload 1
+r_dynamic 1
+r_drawparticles 1
+
+// Sound settings
+snd_mixahead 0.1
+snd_musicvolume 0.5
+snd_menumusic_volume 0.5
+
+// Network settings
+rate 128000
+cl_updaterate 66
+cl_cmdrate 66
+cl_interp 0.0152
+
+// Load the initial map
+// This prevents soundcache rebuild issues and skips ppmod.onauto
 map sp_a2_laser_chaining
+
+// Display welcome message
+echo "Portal 2 Enhanced Configuration Loaded"
