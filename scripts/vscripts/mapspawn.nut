@@ -8,6 +8,10 @@ IncludeScript("sl_httportal");
 // Import DOM enums and colors
 IncludeScript("domtypes");
 
+// Create a script command table
+::script <- {};
+
+// Register functions in the global scope
 ::spawnHeldCube <- async(function (pos = null) {
 
   // Check if the player is already holding a cube
@@ -32,12 +36,7 @@ IncludeScript("domtypes");
 
 });
 
-/**
- * Creates a cube representing an HTML tag or plain text.
- * @param {string|number} type - The type of the element, either a string or a DOM enum.
- * @param {Vector|null} pos - The position to spawn the cube at, or null to spawn at the player's feet.
- * @returns {ppromise<void>} A promise that resolves when the cube is spawned.
- */
+// Register newElement in the global scope
 ::newElement <- async(function (type, pos = null) {
 
   // Validate input type
@@ -66,22 +65,16 @@ IncludeScript("domtypes");
 
 });
 
-/**
- * Creates a modifier cube with the given name and data.
- * @param {string} name - The name of the modifier.
- * @param {string} data - The data associated with the modifier.
- * @param {Vector|null} pos - The position to spawn the cube at, or null to spawn at the player's feet.
- * @returns {ppromise<void>} A promise that resolves when the cube is spawned.
- */
+// Register newModifier in the global scope
 ::newModifier <- async(function (name, data, pos = null) {
 
   // Spawn a storage cube at the player's feet
   yield ppmod.give({ prop_weighted_cube = 1 });
   local cube = yielded.prop_weighted_cube[0];
 
-  // Spawn a storage cube, get its handle
-  yield spawnHeldCube(pos);
-  local cube = yielded;
+  if (pos) {
+    cube.SetOrigin(pos);
+  }
 
   // Store the modifier data in the cube's script scope
   local scope = cube.GetScriptScope();
@@ -99,61 +92,41 @@ IncludeScript("domtypes");
  * @returns {string} The generated HTML document as a string.
  */
 ::buildHTTP <- function () {
-
-  /**
-   * Holds the structure of the HTML document, for serializing later.
-   * Honestly, this has very little to do with the actual HTML DOM,
-   * but we do need to have iterable and sortable objects.
-   */
   local dom = [];
+  local cube = null;
 
-  // We're detaching on almost every step to avoid SQQuerySuspend on big pages
-  ppmod.detach(function (args):(dom) {
-    // Iterate over all non-modifier cubes and push them into the DOM
-    while (args.cube = Entities.FindByClassname(args.cube, "prop_weighted_cube")) {
+  // First pass: collect all element cubes
+  while (cube = Entities.FindByClassname(cube, "prop_weighted_cube")) {
+    local scope = cube.GetScriptScope();
+    if (!("_domType" in scope)) continue;
 
-      local scope = args.cube.GetScriptScope();
-      if (!("_domType" in scope)) continue;
+    dom.push({
+      pos = cube.GetOrigin(),
+      type = scope._domType,
+      modifiers = {}
+    });
+  }
 
-      dom.push({
-        pos = args.cube.GetOrigin(),
-        type = scope._domType,
-        modifiers = {}
-      });
+  // Second pass: collect all modifier cubes
+  cube = null;
+  while (cube = Entities.FindByClassname(cube, "prop_weighted_cube")) {
+    local scope = cube.GetScriptScope();
+    if (!("_domModifier" in scope)) continue;
 
-    }
-  }, { cube = null });
-
-  ppmod.detach(function (args):(dom) {
-    // Iterate over all modifier cubes and push them onto their respective elements
-    while (args.cube = Entities.FindByClassname(args.cube, "prop_weighted_cube")) {
-
-      local scope = args.cube.GetScriptScope();
-      if (!("_domModifier" in scope)) continue;
-
-      local pos = args.cube.GetOrigin();
-
-      foreach (obj in dom) {
-        // Target cubes below us and within 18 units in X and Y
-        // 18 units is the width of a regular storage cube
-        if (fabs(obj.pos.x - pos.x) > 18.0) continue;
-        if (fabs(obj.pos.y - pos.y) > 18.0) continue;
-        // Set the modifier string, or append to it if it already exists
-        if (!(scope._domModifier in obj.modifiers)) {
-          obj.modifiers[scope._domModifier] <- scope._domData;
-        } else {
-          obj.modifiers[scope._domModifier] += ";" + scope._domData;
-        }
+    local pos = cube.GetOrigin();
+    foreach (obj in dom) {
+      if (fabs(obj.pos.x - pos.x) > 18.0) continue;
+      if (fabs(obj.pos.y - pos.y) > 18.0) continue;
+      if (!(scope._domModifier in obj.modifiers)) {
+        obj.modifiers[scope._domModifier] <- scope._domData;
+      } else {
+        obj.modifiers[scope._domModifier] += ";" + scope._domData;
       }
-
     }
-  }, { cube = null });
+  }
 
-  // Sort the DOM elements, first by Y position, then by X position
-  // This mimics the way HTML elements are rendered in a document
+  // Sort DOM elements
   dom.sort(function (a, b) {
-    // The Y position has an 18 unit tolerance, to allow for human error
-    // when manually placing cubes in the world
     if (a.pos.y > b.pos.y + 18.0) return -1;
     if (a.pos.y < b.pos.y - 18.0) return 1;
     if (a.pos.x > b.pos.x) return 1;
@@ -161,56 +134,52 @@ IncludeScript("domtypes");
     return 0;
   });
 
-  // Silly object reference hack, Squirrel doesn't have closures
-  local ref = { output = "" };
-
-  ppmod.detach(function (args):(dom, ref) {
-    while (args.i < dom.len()) {
-      local obj = dom[args.i];
-
-      // Build the modifiers string from the object's modifiers
-      local modifiers = "";
-      foreach (key, value in obj.modifiers) {
-        modifiers += key + "=\"" + value + "\" ";
-      }
-
-      // Write the object itself to the output string
-      if (typeof obj.type == "string") {
-        ref.output += obj.type;
-      } else {
-        ref.output += "<" + (obj.type < 0 ? "/" : "") + DOM_ELEMENTS[abs(obj.type)] + " " + modifiers + ">";
-      }
-
-      args.i ++;
+  // Generate HTML
+  local output = "";
+  foreach (obj in dom) {
+    local modifiers = "";
+    foreach (key, value in obj.modifiers) {
+      modifiers += key + "=\"" + value + "\" ";
     }
-  }, { i = 0 });
 
-  return ref.output;
+    if (typeof obj.type == "string") {
+      output += obj.type;
+    } else {
+      output += "<" + (obj.type < 0 ? "/" : "") + DOM_ELEMENTS[abs(obj.type)] + " " + modifiers + ">";
+    }
+  }
 
+  return output;
 };
 
 // Sends the generated HTML document to the client
 ::sendHTTP <- function (document) {
+  // Pre-calculate content length
+  local contentLength = document.len();
+  local newlineCount = 0;
+  local i = 0;
+  while ((i = document.find("\n", i)) != null) {
+    newlineCount++;
+    i++;
+  }
+  contentLength += newlineCount;
 
-  // Convert to ppstring for couting newlines
-  local str = ppstring(document);
+  // Send headers in a single printl call
+  printl(format("HTTP/1.1 200 OK\nServer: Portal 2\nContent-Type: text/html\nContent-Length: %d\n", contentLength));
 
-  printl("HTTP/1.1 200 OK");
-  printl("Server: Portal 2");
-  printl("Content-Type: text/html");
-  printl("Content-Length: " + (str.len() + str.split("\n").len()));
-  printl("");
-
-  // It seems like the console has some limit on how much it can print at once,
-  // so we split the output into chunks of 1024 characters.
-  for (local i = 0; i <= str.len() / 1024; i ++) {
-    print(str.slice(i * 1024, min(i * 1024 + 1024, str.len())));
+  // Send content in optimized chunks
+  local chunkSize = 2048; // Increased chunk size for better performance
+  local pos = 0;
+  local len = document.len();
+  
+  while (pos < len) {
+    local end = min(pos + chunkSize, len);
+    print(document.slice(pos, end));
+    pos = end;
   }
 
-  // Double newline, just in case
-  printl("");
-  printl("");
-
+  // Send final newlines
+  printl("\n");
 };
 
 ppmod.onauto(function () {
@@ -226,5 +195,16 @@ ppmod.onauto(function () {
   // Required for ent_messages to work
   SendToConsole("developer 1");
   SendToConsole("con_drawnotify 0");
+
+  // Register the script command
+  ::script <- function(cmd) {
+    if (cmd == "newElement") {
+      newElement(H1);
+    } else if (cmd == "newModifier") {
+      newModifier("style", "color: red");
+    } else {
+      printl("Unknown command: " + cmd);
+    }
+  };
 
 });
