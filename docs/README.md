@@ -53,16 +53,17 @@ Welcome to the HTTPortal documentation! This documentation will help you underst
 
 ## Quick Links
 
-- [GitHub Repository](https://github.com/yourusername/HTTPortal)
+- [GitHub Repository](https://github.com/GameNight1436/HTTPortal)
 - [Video Overview](https://youtu.be/-v5vCLLsqbA)
-- [Issue Tracker](https://github.com/yourusername/HTTPortal/issues)
+- [Issue Tracker](https://github.com/GameNight1436/HTTPortal/issues)
 
 ## Support
 
 If you need help or have questions:
 1. Check the [Troubleshooting](./troubleshooting.md) guide
+<<<<<<< HEAD
 2. Search the [FAQ](./FAQ.md)
-3. Search existing [Issues](https://github.com/yourusername/HTTPortal/issues)
+3. Search existing [Issues](https://github.com/GameNight1436/HTTPortal/issues)
 4. Create a new issue if your problem isn't already documented
 
 ## Contributing
