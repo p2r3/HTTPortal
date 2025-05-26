@@ -1,7 +1,13 @@
 /**
- * Pseudo-enumeration for DOM element types.
- * These could easily be strings, but this is ever so slightly more convenient
- * in the developer console and in code.
+ * Portal 2 DOM Element Type System
+ * ===============================
+ * This script provides a type system for HTML DOM elements in Portal 2,
+ * including color mappings for visual representation in-game.
+ * 
+ * Features:
+ * - Enum-like constants for all HTML5 elements
+ * - Color mappings for visual representation
+ * - Helper functions for type conversion and validation
  */
 
 /**
@@ -365,4 +371,60 @@
   "204 204 204",    // WBR (Text-level semantics, light gray)
   "0 0 255"         // A (Text-level semantics, primary blue)
 ];
+
+/**
+ * Helper Functions
+ * ===============
+ */
+
+/**
+ * Converts a DOM element type to its string representation
+ * @param type The numeric DOM element type
+ * @return The string name of the element
+ */
+function GetElementName(type) {
+    if (type < 0) {
+        return "/" + DOM_ELEMENTS[-type];
+    }
+    return DOM_ELEMENTS[type];
+}
+
+/**
+ * Gets the color for a DOM element type
+ * @param type The numeric DOM element type
+ * @return The RGB color string
+ */
+function GetElementColor(type) {
+    if (type < 0) {
+        return DOM_COLORS[-type];
+    }
+    return DOM_COLORS[type];
+}
+
+/**
+ * Checks if a type represents a closing tag
+ * @param type The numeric DOM element type
+ * @return True if it's a closing tag
+ */
+function IsClosingTag(type) {
+    return type < 0;
+}
+
+/**
+ * Gets the corresponding opening tag for a closing tag
+ * @param type The numeric DOM element type
+ * @return The opening tag type
+ */
+function GetOpeningTag(type) {
+    return -type;
+}
+
+/**
+ * Gets the corresponding closing tag for an opening tag
+ * @param type The numeric DOM element type
+ * @return The closing tag type
+ */
+function GetClosingTag(type) {
+    return -type;
+}
 
