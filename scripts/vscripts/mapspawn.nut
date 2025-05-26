@@ -361,23 +361,6 @@ ppmod.onauto(function () {
       } else if (cmd == "newModifier") {
         // Keep existing newModifier handler for simplicity
         newModifier("style", "color: red");
-      } else if (cmd.find("newElement(") == 0) {
-        // Keep existing newElement(...) parsing for compatibility
-        local content = cmd.slice(11, -1);
-        if (content[0] == '"') {
-          // Handle text nodes
-          local text = content.slice(1, -1);
-          newElement(text);
-        } else if (content[0] == '-') {
-          // Handle closing tags
-          local tag = content.slice(1);
-          // Note: This still hardcodes to H1, need to add proper parsing
-          newElement(-H1); // For now, hardcoded to H1
-        } else {
-          // Handle opening tags
-          // Note: This still hardcodes to H1, need to add proper parsing
-          newElement(H1); // For now, hardcoded to H1
-        }
       } else {
         // Show error message for unknown commands
         local errorText = ppmod.text("Unknown command: " + cmd, -1, 0.3);
