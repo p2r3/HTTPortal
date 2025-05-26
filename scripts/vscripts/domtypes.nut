@@ -124,7 +124,6 @@
 ::VIDEO <- 113;
 ::WBR <- 114;
 ::A <- 115;
-::TEXT <- 116;
 
 // Used for converting enum to string
 ::DOM_ELEMENTS <- [
@@ -249,121 +248,121 @@
 // Used for coloring cubes in-game
 // Indices correspond to DOM_ELEMENTS and the enums
 ::DOM_COLORS <- [
-  "120 120 120",
-  "100 100 255",   // ABBR - light blue
-  "150 75 0",      // ADDRESS - brown
-  "0 191 255",     // AREA - sky blue
-  "255 228 181",   // ARTICLE - moccasin
-  "211 211 211",   // ASIDE - light gray
-  "70 130 180",    // AUDIO - steel blue
-  "255 0 0",       // B - red (bold)
-  "128 0 128",     // BASE - purple
-  "105 105 105",   // BDI - dim gray
-  "112 128 144",   // BDO - slate gray
-  "169 169 169",   // BLOCKQUOTE - dark gray
-  "255 255 255",   // BODY - white
-  "200 200 200",   // BR - light gray
-  "0 128 0",       // BUTTON - green
-  "255 165 0",     // CANVAS - orange
-  "192 192 192",   // CAPTION - silver
-  "138 43 226",    // CITE - blue violet
-  "0 0 0",         // CODE - black
-  "119 136 153",   // COL - light slate gray
-  "105 105 105",   // COLGROUP - dim gray
-  "255 215 0",     // DATA - gold
-  "255 240 245",   // DATALIST - lavender blush
-  "245 245 245",   // DD - white smoke
-  "178 34 34",     // DEL - firebrick
-  "47 79 79",      // DETAILS - dark slate gray
-  "255 250 205",   // DFN - lemon chiffon
-  "176 196 222",   // DIALOG - light steel blue
-  "220 220 220",   // DIV - gainsboro
-  "211 211 211",   // DL - light gray
-  "192 192 192",   // DT - silver
-  "255 20 147",    // EM - deep pink
-  "0 0 139",       // EMBED - dark blue
-  "34 139 34",     // FIELDSET - forest green
-  "218 112 214",   // FIGCAPTION - orchid
-  "186 85 211",    // FIGURE - medium orchid
-  "169 169 169",   // FOOTER - dark gray
-  "0 100 0",       // FORM - dark green
-  "255 0 0",       // H1 - bright red
-  "255 69 0",      // H2 - orange red
-  "255 140 0",     // H3 - dark orange
-  "255 215 0",     // H4 - gold
-  "173 255 47",    // H5 - green yellow
-  "127 255 0",     // H6 - chartreuse
-  "70 130 180",    // HEAD - steel blue
-  "105 105 105",   // HEADER - dim gray
-  "119 136 153",   // HGROUP - light slate gray
-  "128 128 128",   // HR - gray
-  "240 248 255",   // HTML - alice blue
-  "75 0 130",      // I - indigo
-  "0 0 0",         // IFRAME - black
-  "255 255 0",     // IMG - yellow
-  "173 216 230",   // INPUT - light blue
-  "34 139 34",     // INS - forest green
-  "255 160 122",   // KBD - light salmon
-  "255 222 173",   // LABEL - navajo white
-  "176 224 230",   // LEGEND - powder blue
-  "255 192 203",   // LI - pink
-  "0 0 128",       // LINK - navy
-  "240 255 255",   // MAIN - azure
-  "124 252 0",     // MAP - lawn green
-  "255 255 224",   // MARK - light yellow
-  "255 250 250",   // MATH - snow
-  "210 180 140",   // MENU - tan
-  "135 206 250",   // META - light sky blue
-  "60 179 113",    // METER - medium sea green
-  "70 130 180",    // NAV - steel blue
-  "245 245 220",   // NOSCRIPT - beige
-  "255 228 196",   // OBJECT - bisque
-  "250 250 210",   // OL - light goldenrod
-  "100 149 237",   // OPTGROUP - cornflower blue
-  "30 144 255",    // OPTION - dodger blue
-  "176 224 230",   // OUTPUT - powder blue
-  "255 255 255",   // P - white
-  "135 206 235",   // PICTURE - sky blue
-  "211 211 211",   // PRE - light gray
-  "0 255 127",     // PROGRESS - spring green
-  "220 20 60",     // Q - crimson
-  "238 130 238",   // RB - violet
-  "199 21 133",    // RP - medium violet red
-  "255 105 180",   // RT - hot pink
-  "219 112 147",   // RTC - pale violet red
-  "255 182 193",   // RUBY - light pink
-  "192 192 192",   // S - silver
-  "255 228 225",   // SAMP - misty rose
-  "0 0 0",         // SCRIPT - black
-  "245 245 245",   // SECTION - white smoke
-  "224 255 255",   // SELECT - light cyan
-  "255 248 220",   // SLOT - cornsilk
-  "250 235 215",   // SMALL - antique white
-  "255 248 220",   // SOURCE - cornsilk
-  "255 255 255",   // SPAN - white
-  "255 0 0",       // STRONG - red
-  "0 0 0",         // STYLE - black
-  "102 205 170",   // SUB - medium aquamarine
-  "255 239 213",   // SUMMARY - papaya whip
-  "0 191 255",     // SUP - deep sky blue
-  "0 128 128",     // SVG - teal
-  "240 255 255",   // TABLE - azure
-  "224 255 255",   // TBODY - light cyan
-  "175 238 238",   // TD - pale turquoise
-  "255 250 240",   // TEMPLATE - floral white
-  "255 239 213",   // TEXTAREA - papaya whip
-  "255 245 238",   // TFOOT - seashell
-  "245 255 250",   // TH - mint cream
-  "240 255 240",   // THEAD - honeydew
-  "255 222 173",   // TIME - navajo white
-  "0 0 0",         // TITLE - black
-  "211 211 211",   // TR - light gray
-  "255 255 255",   // TRACK - white
-  "128 0 128",     // U - purple
-  "240 248 255",   // UL - alice blue
-  "0 0 255",       // VAR - blue
-  "25 25 112",     // VIDEO - midnight blue
-  "211 211 211",   // WBR - light gray
-  "0 0 238",       // A - link blue
+  "120 120 120",    // UNUSED
+  "102 204 255",    // ABBR (Text-level semantics, light blue)
+  "153 102 204",    // ADDRESS (Grouping content, purple)
+  "255 204 102",    // AREA (Image maps, orange-yellow)
+  "255 102 102",    // ARTICLE (Sectioning content, red)
+  "255 153 51",     // ASIDE (Sectioning content, orange)
+  "0 153 204",      // AUDIO (Media, cool blue)
+  "255 51 51",      // B (Text-level semantics, bold red)
+  "102 255 102",    // BASE (Document metadata, bright green)
+  "51 204 153",     // BDI (Text-level semantics, teal)
+  "51 153 204",     // BDO (Text-level semantics, medium blue)
+  "204 102 255",    // BLOCKQUOTE (Grouping content, vibrant purple)
+  "51 153 51",      // BODY (Document structure, deep green)
+  "204 204 204",    // BR (Edits, light gray)
+  "255 153 204",    // BUTTON (Forms, pink)
+  "255 102 255",    // CANVAS (Graphics, bright pink/purple)
+  "102 255 153",    // CAPTION (Table content, mint green)
+  "153 51 255",     // CITE (Text-level semantics, dark purple)
+  "51 204 255",     // CODE (Text-level semantics, bright cyan)
+  "204 153 102",    // COL (Table content, brown-ish)
+  "204 102 51",     // COLGROUP (Table content, darker orange)
+  "0 204 102",      // DATA (Text-level semantics, emerald green)
+  "153 255 51",     // DATALIST (Forms, lime green)
+  "255 204 51",     // DD (List content, golden yellow)
+  "255 102 153",    // DEL (Edits, raspberry pink)
+  "102 153 255",    // DETAILS (Interactive elements, medium blue)
+  "153 51 102",     // DFN (Text-level semantics, deep rose)
+  "255 51 153",     // DIALOG (Interactive elements, hot pink)
+  "153 204 255",    // DIV (Grouping content, soft blue)
+  "255 153 102",    // DL (List content, peach)
+  "255 102 51",     // DT (List content, vivid orange)
+  "204 255 51",     // EM (Text-level semantics, bright yellow-green)
+  "51 255 204",     // EMBED (Embedded content, turquoise)
+  "255 204 153",    // FIELDSET (Forms, light peach)
+  "255 153 153",    // FIGCAPTION (Figure content, light red)
+  "255 102 102",    // FIGURE (Figure content, red)
+  "102 102 255",    // FOOTER (Sectioning content, medium purple)
+  "255 255 102",    // FORM (Forms, bright yellow)
+  "255 0 0",        // H1 (Sectioning content, primary red)
+  "204 0 0",        // H2 (Sectioning content, slightly darker red)
+  "153 0 0",        // H3 (Sectioning content, even darker red)
+  "102 0 0",        // H4 (Sectioning content, darker red)
+  "51 0 0",         // H5 (Sectioning content, deep red)
+  "0 0 0",          // H6 (Sectioning content, black for contrast)
+  "153 255 153",    // HEAD (Document metadata, light green)
+  "102 255 102",    // HEADER (Sectioning content, bright green)
+  "51 255 51",      // HGROUP (Sectioning content, vivid green)
+  "102 102 102",    // HR (Edits, dark gray)
+  "51 102 51",      // HTML (Document structure, dark green)
+  "153 51 153",     // I (Text-level semantics, purple-pink)
+  "51 153 255",     // IFRAME (Embedded content, sky blue)
+  "0 204 204",      // IMG (Embedded content, cyan)
+  "255 255 0",      // INPUT (Forms, yellow)
+  "102 255 204",    // INS (Edits, light teal)
+  "255 153 51",     // KBD (Text-level semantics, orange)
+  "255 102 51",     // LABEL (Forms, vivid orange)
+  "255 51 102",     // LEGEND (Forms, deep pink)
+  "51 153 102",     // LI (List content, green-teal)
+  "51 51 204",      // LINK (Document metadata, deep blue)
+  "255 153 0",      // MAIN (Sectioning content, dark orange)
+  "204 255 102",    // MAP (Image maps, lime yellow)
+  "255 255 153",    // MARK (Text-level semantics, light yellow)
+  "153 102 255",    // MATH (Embedded content, vibrant purple)
+  "102 204 153",    // MENU (List content, grayish green)
+  "204 102 204",    // META (Document metadata, medium purple)
+  "102 255 51",     // METER (Forms, bright green)
+  "0 102 255",      // NAV (Sectioning content, bright blue)
+  "255 51 51",      // NOSCRIPT (Scripting, red)
+  "204 51 255",     // OBJECT (Embedded content, bright purple)
+  "102 153 51",     // OL (List content, olive green)
+  "102 102 51",     // OPTGROUP (Forms, dark olive)
+  "153 153 51",     // OPTION (Forms, medium olive)
+  "255 204 51",     // OUTPUT (Forms, golden yellow)
+  "102 102 255",    // P (Grouping content, medium purple)
+  "0 153 153",      // PICTURE (Embedded content, deep teal)
+  "51 51 153",      // PRE (Text-level semantics, dark blue-purple)
+  "51 255 153",     // PROGRESS (Forms, vivid green)
+  "255 51 204",     // Q (Text-level semantics, fuchsia)
+  "255 102 102",    // RB (Ruby annotation, red)
+  "255 153 102",    // RP (Ruby annotation, peach)
+  "255 204 102",    // RT (Ruby annotation, orange-yellow)
+  "255 51 51",      // RTC (Ruby annotation, red)
+  "204 51 51",      // RUBY (Ruby annotation, darker red)
+  "255 102 153",    // S (Text-level semantics, raspberry pink)
+  "153 51 51",      // SAMP (Text-level semantics, dark red)
+  "255 51 255",     // SCRIPT (Scripting, bright pink/purple)
+  "0 204 51",       // SECTION (Sectioning content, vivid green)
+  "102 153 204",    // SELECT (Forms, grayish blue)
+  "255 153 204",    // SLOT (Web Components, pink)
+  "153 204 255",    // SMALL (Text-level semantics, soft blue)
+  "0 255 255",      // SOURCE (Media, bright cyan)
+  "255 0 255",      // SPAN (Text-level semantics, magenta)
+  "204 0 204",      // STRONG (Text-level semantics, dark magenta)
+  "255 102 204",    // STYLE (Document metadata, vibrant pink)
+  "102 153 255",    // SUB (Text-level semantics, medium blue)
+  "255 153 102",    // SUMMARY (Interactive elements, peach)
+  "102 204 255",    // SUP (Text-level semantics, light blue)
+  "255 255 51",     // SVG (Graphics, vibrant yellow)
+  "102 51 0",       // TABLE (Table content, dark brown)
+  "153 102 51",     // TBODY (Table content, medium brown)
+  "204 153 102",    // TD (Table content, lighter brown)
+  "51 255 102",     // TEMPLATE (Scripting, bright green)
+  "204 102 153",    // TEXTAREA (Forms, dusty pink)
+  "102 102 51",     // TFOOT (Table content, dark olive)
+  "51 51 0",        // TH (Table content, very dark olive)
+  "51 51 0",        // THEAD (Table header, very dark olive)
+  "102 51 204",     // TIME (Text-level semantics, deep purple)
+  "51 102 153",     // TITLE (Document metadata, grayish blue)
+  "153 51 0",       // TR (Table content, dark orange-brown)
+  "51 204 102",     // TRACK (Media, emerald green)
+  "204 102 255",    // U (Text-level semantics, vibrant purple)
+  "51 102 102",     // UL (List content, dark teal)
+  "153 51 102",     // VAR (Text-level semantics, deep rose)
+  "0 102 204",      // VIDEO (Media, cool blue)
+  "204 204 204",    // WBR (Text-level semantics, light gray)
+  "0 0 255"         // A (Text-level semantics, primary blue)
 ];
 
