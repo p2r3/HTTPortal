@@ -1,0 +1,9 @@
+// default valve.rc contents
+exec joystick.cfg
+exec autoexec.cfg
+stuffcmds
+
+// a fresh start will likely try to rebuild soundcache
+// or, users may attempt to load a save, which skips ppmod.onauto
+// to work around both issues, we boot straight into a map
+map sp_a2_laser_chaining
